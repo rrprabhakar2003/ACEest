@@ -129,10 +129,11 @@ pipeline {
             steps {
                 echo "Running smoke tests against Docker container..."
                 sh """
-                    docker run -d --name aceest-test-${BUILD_NUMBER} \\
-                        -p 5002:5000 ${IMAGE_TAG}
-                    sleep 5
-                    curl -f http://localhost:5002/health || (docker rm -f aceest-test-${BUILD_NUMBER} && exit 1)
+                    docker run -d --name aceest-test-${BUILD_NUMBER} ${IMAGE_TAG}
+                    sleep 8
+                    CONTAINER_IP=\$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' aceest-test-${BUILD_NUMBER})
+                    echo "Container IP: \$CONTAINER_IP"
+                    curl -f http://\${CONTAINER_IP}:5000/health || (docker rm -f aceest-test-${BUILD_NUMBER} && exit 1)
                     docker rm -f aceest-test-${BUILD_NUMBER}
                     echo "Container smoke test passed!"
                 """
