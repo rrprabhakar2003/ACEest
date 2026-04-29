@@ -49,3 +49,10 @@ Thumbs.db
 # SonarQube
 .scannerwork/
 minikube-darwin-arm64
+
+# Generated test/coverage output
+coverage.xml
+test-results.xml
+
+# Claude memory
+.claude/

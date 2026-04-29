@@ -101,9 +101,9 @@ Metrics are collected per variant to determine which version performs better bef
 
 | Test File | Covers | Tests |
 |-----------|--------|-------|
-| `tests/test_v1.py` | v1: Members, Plans, Health | 30 |
-| `tests/test_v2.py` | v2: Classes, Bookings | 27 |
-| `tests/test_app.py` | v3: Trainers, Workouts, Equipment, Dashboard | 40 |
+| `tests/test_v1.py` | v1: Members, Plans, Health | 32 |
+| `tests/test_v2.py` | v2: Classes, Bookings | 25 |
+| `tests/test_app.py` | v3: Trainers, Workouts, Equipment, Dashboard | 44 |
 
 All tests use Flask's `test_client()`. Each test class resets in-memory state via an `autouse` fixture. Coverage is reported to `coverage.xml` and consumed by SonarQube.
 
@@ -111,7 +111,7 @@ All tests use Flask's `test_client()`. Each test class resets in-memory state vi
 
 ## 4. SonarQube Quality Gate
 
-SonarQube is configured via `sonar-project.properties` and integrated into the Jenkins pipeline stage `SonarQube Analysis`. The `waitForQualityGate` step aborts the pipeline if code quality thresholds are not met.
+SonarQube is configured via `sonar-project.properties` and integrated into the Jenkins pipeline stage `SonarQube Analysis`. The Quality Gate stage queries the SonarQube API and aborts the pipeline if code quality thresholds are not met.
 
 Key metrics enforced:
 - Code coverage > 80%
@@ -140,4 +140,4 @@ Key metrics enforced:
 - **Versioned Docker images:** `raviprabhakar/aceest-fitness:1.0.0`, `2.0.0`, `3.0.0`, and `latest` on Docker Hub.
 - **Five deployment strategies** implemented and ready to apply against any Kubernetes cluster.
 - **Instant rollback:** Blue-Green switch or `kubectl rollout undo` recovers in under 60 seconds.
-- **97 unit tests** covering all API endpoints across all three application versions.
+- **101 unit tests** covering all API endpoints across all three application versions.
