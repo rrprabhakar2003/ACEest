@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: raviranjan/aceest-fitness:3.0.0
+    image: raviprabhakar/aceest-fitness:3.0.0
     container_name: aceest-fitness-app
     ports:
       - "5000:5000"

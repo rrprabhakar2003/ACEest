@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_REPO  = 'raviranjan/aceest-fitness'
+        DOCKER_HUB_REPO  = 'raviprabhakar/aceest-fitness'
         DOCKER_CREDS     = credentials('docker-hub-credentials')
         SONAR_TOKEN      = credentials('sonarqube-token')
         SONAR_HOST       = 'http://sonarqube:9000'

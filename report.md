@@ -1,7 +1,7 @@
 # ACEest Fitness & Gym — DevOps CI/CD Report
 
-**Student:** Ravi Ranjan  
-**Email:** ravi.ranjan@thesouledstore.com  
+**Student:** Ravi Ranjan Prabhakar
+**Email:** 2022us70038@wilp.bits-pilani.ac.in 
 **Course:** Introduction to DEVOPS (CSIZG514/SEZG514) — S1-25  
 **Assignment:** 2 — DevOps CI/CD Implementation
 
@@ -137,7 +137,7 @@ Key metrics enforced:
 
 - **Fully automated pipeline:** every `git push` triggers lint → test → scan → build → push → deploy.
 - **Quality gate enforcement:** broken code never reaches the registry; SonarQube blocks the build.
-- **Versioned Docker images:** `raviranjan/aceest-fitness:1.0.0`, `2.0.0`, `3.0.0`, and `latest` on Docker Hub.
+- **Versioned Docker images:** `raviprabhakar/aceest-fitness:1.0.0`, `2.0.0`, `3.0.0`, and `latest` on Docker Hub.
 - **Five deployment strategies** implemented and ready to apply against any Kubernetes cluster.
 - **Instant rollback:** Blue-Green switch or `kubectl rollout undo` recovers in under 60 seconds.
 - **97 unit tests** covering all API endpoints across all three application versions.

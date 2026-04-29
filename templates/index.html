@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ACEest Fitness & Gym</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f0f0f;
+      color: #f0f0f0;
+      min-height: 100vh;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      background: #141414;
+      border-bottom: 1px solid #2a2a2a;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .logo { font-size: 1.4rem; font-weight: 700; color: #e8ff00; letter-spacing: 1px; }
+    nav .version {
+      background: #e8ff00;
+      color: #000;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: linear-gradient(160deg, #141414 0%, #1a1a1a 100%);
+    }
+    .hero .badge {
+      display: inline-block;
+      background: #e8ff0020;
+      color: #e8ff00;
+      border: 1px solid #e8ff0050;
+      font-size: 0.8rem;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 14px; }
+    .hero h1 span { color: #e8ff00; }
+    .hero p { font-size: 1.1rem; color: #888; max-width: 500px; margin: 0 auto 30px; }
+    .status-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1e2e1e;
+      border: 1px solid #2a4a2a;
+      color: #4caf50;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+    .dot { width: 8px; height: 8px; background: #4caf50; border-radius: 50%; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ── Stats ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 40px 20px;
+      background: #141414;
+    }
+    .stat-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 24px 32px;
+      text-align: center;
+      min-width: 140px;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: #e8ff00; }
+    .stat-card .num { font-size: 2rem; font-weight: 800; color: #e8ff00; }
+    .stat-card .label { font-size: 0.8rem; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ── Endpoints ── */
+    .section { padding: 50px 40px; max-width: 1100px; margin: 0 auto; }
+    .section h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 24px; color: #ccc; }
+    .section h2 span { color: #e8ff00; }
+
+    .endpoints {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .ep-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .ep-card:hover { border-color: #e8ff00; background: #1e1e1e; transform: translateY(-2px); }
+    .ep-icon {
+      font-size: 1.5rem;
+      width: 44px; height: 44px;
+      background: #e8ff0015;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ep-info .ep-name { font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
+    .ep-info .ep-path { font-size: 0.8rem; color: #e8ff00; font-family: monospace; margin-bottom: 4px; }
+    .ep-info .ep-desc { font-size: 0.78rem; color: #666; }
+
+    /* ── Try it ── */
+    .try-section {
+      background: #141414;
+      border-top: 1px solid #2a2a2a;
+      padding: 50px 40px;
+    }
+    .try-inner { max-width: 1100px; margin: 0 auto; }
+    .try-inner h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 24px; color: #ccc; }
+    .try-inner h2 span { color: #e8ff00; }
+    .try-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .try-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .try-card .try-header {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .method {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    .get  { background: #1a3a1a; color: #4caf50; }
+    .post { background: #1a1a3a; color: #5b8dee; }
+    .try-card .try-url { font-size: 0.85rem; font-family: monospace; color: #aaa; }
+    .try-card button {
+      display: block;
+      width: calc(100% - 24px);
+      margin: 12px;
+      padding: 10px;
+      background: #e8ff00;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .try-card button:hover { opacity: 0.85; }
+    .try-card .response {
+      margin: 0 12px 12px;
+      background: #0f0f0f;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.75rem;
+      font-family: monospace;
+      color: #4caf50;
+      max-height: 160px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      display: none;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #444;
+      font-size: 0.8rem;
+      border-top: 1px solid #2a2a2a;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <div class="logo">⚡ ACEest Fitness</div>
+  <div class="version">v{{ version }}</div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="badge">FITNESS & GYM MANAGEMENT</div>
+  <h1>Welcome to <span>ACEest</span></h1>
+  <p>A fully automated DevOps-powered gym management system with CI/CD pipeline.</p>
+  <div class="status-dot"><div class="dot"></div> System Online</div>
+</div>
+
+<!-- Stats -->
+<div class="stats" id="statsBar">
+  <div class="stat-card"><div class="num" id="s-members">0</div><div class="label">Members</div></div>
+  <div class="stat-card"><div class="num" id="s-classes">0</div><div class="label">Classes</div></div>
+  <div class="stat-card"><div class="num" id="s-trainers">0</div><div class="label">Trainers</div></div>
+  <div class="stat-card"><div class="num" id="s-workouts">0</div><div class="label">Workouts</div></div>
+  <div class="stat-card"><div class="num" id="s-bookings">0</div><div class="label">Bookings</div></div>
+  <div class="stat-card"><div class="num" id="s-equipment">0</div><div class="label">Equipment</div></div>
+</div>
+
+<!-- Endpoints -->
+<div class="section">
+  <h2>API <span>Endpoints</span></h2>
+  <div class="endpoints">
+    <a class="ep-card" href="/members">
+      <div class="ep-icon">👥</div>
+      <div class="ep-info">
+        <div class="ep-name">Members</div>
+        <div class="ep-path">GET /members</div>
+        <div class="ep-desc">Register, update and manage gym members</div>
+      </div>
+    </a>
+    <a class="ep-card" href="/trainers">
+      <div class="ep-icon">🏋️</div>
+      <div class="ep-info">
+        <div class="ep-name">Trainers</div>
+        <div class="ep-path">GET /trainers</div>
+        <div class="ep-desc">Manage certified fitness trainers</div>
+      </div>
+    </a>
+    <a class="ep-card" href="/classes">
+      <div class="ep-icon">🧘</div>
+      <div class="ep-info">
+        <div class="ep-name">Classes</div>
+        <div class="ep-path">GET /classes</div>
+        <div class="ep-desc">Yoga, HIIT, CrossFit and more</div>
+      </div>
+    </a>
+    <a class="ep-card" href="/bookings">
+      <div class="ep-icon">📅</div>
+      <div class="ep-info">
+        <div class="ep-name">Bookings</div>
+        <div class="ep-path">GET /bookings</div>
+        <div class="ep-desc">Class booking and scheduling</div>
+      </div>
+    </a>
+    <a class="ep-card" href="/workouts">
+      <div class="ep-icon">💪</div>
+      <div class="ep-info">
+        <div class="ep-name">Workouts</div>
+        <div class="ep-path">GET /workouts</div>
+        <div class="ep-desc">Log and track workout sessions</div>
+      </div>
+    </a>
+    <a class="ep-card" href="/equipment">
+      <div class="ep-icon">🔧</div>
+      <div class="ep-info">
+        <div class="ep-name">Equipment</div>
+        <div class="ep-path">GET /equipment</div>
+        <div class="ep-desc">Gym equipment inventory</div>
+      </div>
+    </a>
+    <a class="ep-card" href="/dashboard">
+      <div class="ep-icon">📊</div>
+      <div class="ep-info">
+        <div class="ep-name">Dashboard</div>
+        <div class="ep-path">GET /dashboard</div>
+        <div class="ep-desc">Live KPIs and gym statistics</div>
+      </div>
+    </a>
+    <a class="ep-card" href="/plans">
+      <div class="ep-icon">💳</div>
+      <div class="ep-info">
+        <div class="ep-name">Plans</div>
+        <div class="ep-path">GET /plans</div>
+        <div class="ep-desc">Basic, Premium and VIP membership plans</div>
+      </div>
+    </a>
+    <a class="ep-card" href="/health">
+      <div class="ep-icon">❤️</div>
+      <div class="ep-info">
+        <div class="ep-name">Health</div>
+        <div class="ep-path">GET /health</div>
+        <div class="ep-desc">System health check and uptime</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- Try it -->
+<div class="try-section">
+  <div class="try-inner">
+    <h2>Try it <span>Live</span></h2>
+    <div class="try-grid">
+
+      <div class="try-card">
+        <div class="try-header">
+          <span class="method get">GET</span>
+          <span class="try-url">/health</span>
+        </div>
+        <button onclick="tryApi('/health','r0')">Run</button>
+        <div class="response" id="r0"></div>
+      </div>
+
+      <div class="try-card">
+        <div class="try-header">
+          <span class="method get">GET</span>
+          <span class="try-url">/dashboard</span>
+        </div>
+        <button onclick="tryApi('/dashboard','r1')">Run</button>
+        <div class="response" id="r1"></div>
+      </div>
+
+      <div class="try-card">
+        <div class="try-header">
+          <span class="method get">GET</span>
+          <span class="try-url">/plans</span>
+        </div>
+        <button onclick="tryApi('/plans','r2')">Run</button>
+        <div class="response" id="r2"></div>
+      </div>
+
+      <div class="try-card">
+        <div class="try-header">
+          <span class="method get">GET</span>
+          <span class="try-url">/members</span>
+        </div>
+        <button onclick="tryApi('/members','r3')">Run</button>
+        <div class="response" id="r3"></div>
+      </div>
+
+      <div class="try-card">
+        <div class="try-header">
+          <span class="method get">GET</span>
+          <span class="try-url">/classes</span>
+        </div>
+        <button onclick="tryApi('/classes','r4')">Run</button>
+        <div class="response" id="r4"></div>
+      </div>
+
+      <div class="try-card">
+        <div class="try-header">
+          <span class="method get">GET</span>
+          <span class="try-url">/trainers</span>
+        </div>
+        <button onclick="tryApi('/trainers','r5')">Run</button>
+        <div class="response" id="r5"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>ACEest Fitness & Gym &nbsp;|&nbsp; v{{ version }} &nbsp;|&nbsp; DevOps Assignment — CSIZG514</footer>
+
+<script>
+  // Load live stats from /health
+  fetch('/health')
+    .then(r => r.json())
+    .then(d => {
+      const s = d.stats || {};
+      document.getElementById('s-members').textContent   = s.members   || 0;
+      document.getElementById('s-classes').textContent   = s.classes   || 0;
+      document.getElementById('s-trainers').textContent  = s.trainers  || 0;
+      document.getElementById('s-workouts').textContent  = s.workouts  || 0;
+      document.getElementById('s-bookings').textContent  = s.bookings  || 0;
+      document.getElementById('s-equipment').textContent = s.equipment || 0;
+    });
+
+  // Live API tester
+  function tryApi(url, elId) {
+    const el = document.getElementById(elId);
+    el.style.display = 'block';
+    el.textContent = 'Loading...';
+    fetch(url)
+      .then(r => r.json())
+      .then(d => { el.textContent = JSON.stringify(d, null, 2); })
+      .catch(e => { el.textContent = 'Error: ' + e.message; el.style.color = '#f44'; });
+  }
+</script>
+</body>
+</html>

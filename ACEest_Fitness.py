@@ -3,9 +3,10 @@ ACEest Fitness & Gym Management System - Version 3.0
 Full features: Members, Classes, Bookings, Workouts, Trainers, Equipment, Dashboard
 """
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from datetime import datetime
 import uuid
+import os
 
 app = Flask(__name__)
 app.config['VERSION'] = '3.0.0'
@@ -43,21 +44,7 @@ EQUIPMENT_CATEGORIES = ['Cardio', 'Strength', 'Flexibility', 'Free Weights', 'Ma
 
 @app.route('/')
 def home():
-    return jsonify({
-        'app': app.config['APP_NAME'],
-        'version': app.config['VERSION'],
-        'status': 'running',
-        'message': 'Welcome to ACEest Fitness & Gym Management System v3',
-        'endpoints': {
-            'members': '/members',
-            'classes': '/classes',
-            'bookings': '/bookings',
-            'workouts': '/workouts',
-            'trainers': '/trainers',
-            'equipment': '/equipment',
-            'dashboard': '/dashboard'
-        }
-    })
+    return render_template('index.html', version=app.config['VERSION'])
 
 
 @app.route('/health')
@@ -475,4 +462,5 @@ def delete_equipment(eq_id):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    port = int(os.environ.get('PORT', 5001))
+    app.run(host='0.0.0.0', port=port, debug=False)

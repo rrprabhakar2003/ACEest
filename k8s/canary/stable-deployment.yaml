@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: aceest-fitness
-          image: raviranjan/aceest-fitness:2.0.0
+          image: raviprabhakar/aceest-fitness:2.0.0
           ports:
             - containerPort: 5000
           resources:
