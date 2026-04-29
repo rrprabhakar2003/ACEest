@@ -176,17 +176,14 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline completed successfully! Image: ${IMAGE_TAG}"
+            echo "Pipeline completed successfully!"
         }
         failure {
             echo "Pipeline failed! Initiating rollback..."
-            sh """
-                kubectl rollout undo deployment/aceest-fitness \
-                    -n ${KUBE_NAMESPACE} || true
-            """
+            sh "kubectl rollout undo deployment/aceest-fitness -n aceest-fitness || true"
         }
         always {
-            sh 'docker rmi ${IMAGE_TAG} ${IMAGE_LATEST} || true'
+            sh "docker rmi raviprabhakar/aceest-fitness:3.0.0 raviprabhakar/aceest-fitness:latest || true"
             cleanWs()
         }
     }
