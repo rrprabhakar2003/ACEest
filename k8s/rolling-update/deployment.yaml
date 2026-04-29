@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aceest-fitness
+  namespace: aceest-fitness
+  labels:
+    app: aceest-fitness
+    strategy: rolling-update
+    version: "3.0.0"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aceest-fitness
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1         # one extra pod during update
+      maxUnavailable: 0   # zero downtime
+  template:
+    metadata:
+      labels:
+        app: aceest-fitness
+        version: "3.0.0"
+    spec:
+      containers:
+        - name: aceest-fitness
+          image: raviranjan/aceest-fitness:3.0.0
+          ports:
+            - containerPort: 5000
+          env:
+            - name: FLASK_ENV
+              value: production
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+      terminationGracePeriodSeconds: 30

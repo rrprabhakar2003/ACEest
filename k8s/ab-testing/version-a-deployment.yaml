@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aceest-fitness-version-a
+  namespace: aceest-fitness
+  labels:
+    app: aceest-fitness
+    variant: a
+    version: "2.0.0"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aceest-fitness
+      variant: a
+  template:
+    metadata:
+      labels:
+        app: aceest-fitness
+        variant: a
+        version: "2.0.0"
+    spec:
+      containers:
+        - name: aceest-fitness
+          image: raviranjan/aceest-fitness:2.0.0
+          ports:
+            - containerPort: 5000
+          env:
+            - name: AB_VARIANT
+              value: "A"
+            - name: FLASK_ENV
+              value: production
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10

@@ -1,0 +1,38 @@
+# A/B Testing: route users to variant A or B based on headers or session.
+# With Istio, use VirtualService to split traffic 50/50 by header 'x-user-group'.
+# Without Istio, maintain two separate NodePort services and route at the load balancer.
+apiVersion: v1
+kind: Service
+metadata:
+  name: aceest-fitness-a-svc
+  namespace: aceest-fitness
+  labels:
+    strategy: ab-testing
+    variant: a
+spec:
+  type: NodePort
+  selector:
+    app: aceest-fitness
+    variant: a
+  ports:
+    - port: 5000
+      targetPort: 5000
+      nodePort: 30084
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aceest-fitness-b-svc
+  namespace: aceest-fitness
+  labels:
+    strategy: ab-testing
+    variant: b
+spec:
+  type: NodePort
+  selector:
+    app: aceest-fitness
+    variant: b
+  ports:
+    - port: 5000
+      targetPort: 5000
+      nodePort: 30085
