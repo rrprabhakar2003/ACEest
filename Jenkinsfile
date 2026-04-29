@@ -15,7 +15,6 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
         timeout(time: 30, unit: 'MINUTES')
-        timestamps()
     }
 
     triggers {
@@ -147,16 +146,10 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
-            parallel {
-                stage('Create Namespace') {
-                    steps {
-                        sh "kubectl create namespace ${KUBE_NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -"
-                    }
-                }
-            }
             steps {
                 echo "Deploying Rolling Update to Kubernetes..."
                 sh """
+                    kubectl create namespace ${KUBE_NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
                     kubectl set image deployment/aceest-fitness \
                         aceest-fitness=${IMAGE_TAG} \
                         -n ${KUBE_NAMESPACE} || \

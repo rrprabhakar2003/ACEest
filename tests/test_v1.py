@@ -104,7 +104,7 @@ class TestMemberRegistration:
         assert response.status_code == 409
 
     def test_register_no_body_returns_400(self, client):
-        response = client.post('/members')
+        response = client.post('/members', content_type='application/json')
         assert response.status_code == 400
 
     def test_register_sets_active_true(self, client, sample_member):

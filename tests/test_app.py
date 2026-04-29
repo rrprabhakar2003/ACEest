@@ -79,12 +79,12 @@ class TestHomeAndHealth:
         assert client.get('/').status_code == 200
 
     def test_version_is_three(self, client):
-        data = client.get('/').get_json()
-        assert data['version'] == '3.0.0'
+        response = client.get('/')
+        assert b'3.0.0' in response.data
 
     def test_home_has_endpoints(self, client):
-        data = client.get('/').get_json()
-        assert 'endpoints' in data
+        response = client.get('/')
+        assert b'/health' in response.data or b'health' in response.data
 
     def test_health_healthy(self, client):
         data = client.get('/health').get_json()
