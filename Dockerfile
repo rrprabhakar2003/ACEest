@@ -28,5 +28,6 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 ENV FLASK_APP=ACEest_Fitness.py
 ENV FLASK_ENV=production
 ENV PYTHONUNBUFFERED=1
+ENV PORT=5000
 
 CMD ["python", "ACEest_Fitness.py"]

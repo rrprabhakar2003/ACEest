@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(kubectl apply *)",
+      "Bash(kubectl rollout *)",
+      "Bash(kubectl get *)",
+      "Bash(kubectl describe *)",
+      "Bash(kubectl logs *)",
+      "Bash(minikube image *)",
+      "Bash(minikube service *)",
+      "Bash(minikube ip *)",
+      "Bash(curl -s http://192.168.49.2:30080/health)",
+      "Bash(kubectl port-forward *)",
+      "Bash(curl -s http://localhost:8888/health)"
+    ]
+  }
+}
