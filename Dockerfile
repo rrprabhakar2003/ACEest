@@ -16,6 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ACEest_Fitness.py .
 COPY ACEest_Fitness_v1.py .
 COPY ACEest_Fitness_v2.py .
+COPY templates/ templates/
 
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 USER appuser
